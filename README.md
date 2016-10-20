@@ -2,7 +2,7 @@
 
 ##提供一些共有的类方法,可以下载在viewcontroller.m里面验证方法的正确性,使用的时候直接把UtilsFunction.h和.m拖到工程里面即可
 
-...
+
 /**
  邮箱验证
 
@@ -31,6 +31,16 @@
  */
 + (UIImage *) imageWithColor: (UIColor *) color ;
 
+
+/**
+ 汉字转拼音
+ 
+ @param chinese 汉字
+ 
+ @return 拼音
+ */
+
++ (NSString *)chineseWordSwitchIntoPinyinWith:(NSString *)chinese;
 /**
  根据时间戳生产时间字符串
 
@@ -177,4 +187,3 @@
 + (NSString *)GetAppCurrentVersion;
 
 
-...

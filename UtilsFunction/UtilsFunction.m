@@ -70,8 +70,24 @@
     }
     return  NO;
 }
+#pragma mark --- 汉字转拼音
+-(NSString *)chineseWordSwitchIntoPinyinWith:(NSString *)chinese
+{
+    //汉字转拼音
+    NSMutableString *pinyin = [chinese mutableCopy];
+    //转拼音
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
+    //去掉音标1234声
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
+    //转化后的拼音有空格
+    //NSString中的stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]方法只是去掉左右两边的空格；
+    //去掉字符串中的全部空格
+    NSString *strEnd = [pinyin stringByReplacingOccurrencesOfString:@" " withString:@""];//可以去掉空格，注意此时生成的strEnd是autorelease属性的
+    return strEnd;
+    
+}
 
-// 根据颜色生成图片
+#pragma mark --- 根据颜色生成图片
 + (UIImage *) imageWithColor: (UIColor *) color
 {
     //宽高 1.0只要有值就够了

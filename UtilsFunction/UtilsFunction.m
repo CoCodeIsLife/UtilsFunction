@@ -70,8 +70,14 @@
     }
     return  NO;
 }
+#pragma mark --- 去掉字符串中间的空格
++ (NSString *)removeSpaceInString:(NSString *)string
+{
+    //可以去掉空格，注意此时生成的strEnd是autorelease属性的
+    return  [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+}
 #pragma mark --- 汉字转拼音
--(NSString *)chineseWordSwitchIntoPinyinWith:(NSString *)chinese
++ (NSString *)chineseWordSwitchIntoPinyinWith:(NSString *)chinese
 {
     //汉字转拼音
     NSMutableString *pinyin = [chinese mutableCopy];
@@ -81,10 +87,9 @@
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
     //转化后的拼音有空格
     //NSString中的stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]方法只是去掉左右两边的空格；
-    //去掉字符串中的全部空格
-    NSString *strEnd = [pinyin stringByReplacingOccurrencesOfString:@" " withString:@""];//可以去掉空格，注意此时生成的strEnd是autorelease属性的
-    return strEnd;
+    // stringByReplacingOccurrencesOfString:@" " withString:@""];//可以去掉空格，注意此时生成的strEnd是autorelease属性的
     
+    return [UtilsFunction removeSpaceInString:pinyin];
 }
 
 #pragma mark --- 根据颜色生成图片

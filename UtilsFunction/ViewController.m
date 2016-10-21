@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    NSLog(@"----------%@",[UtilsFunction chineseWordSwitchIntoPinyinWith:@"你好这个世界"]);
     
 
 }

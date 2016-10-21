@@ -337,5 +337,18 @@
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
     return currentVersion;
 }
+
+
+#pragma mark --- 字符串局部着色
++(NSAttributedString *)stringWithColor:(UIColor *)color range:(NSRange)range string:(NSString *)string
+{
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string];
+    [str addAttribute:NSForegroundColorAttributeName value:color range:range];
+    return str;
+}
+
+
+
+
 @end
 

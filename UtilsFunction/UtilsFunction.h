@@ -194,5 +194,14 @@
  */
 + (NSString *)GetAppCurrentVersion;
 
+/**
+ 字符串局部着色
 
+ @param color  颜色
+ @param range  着色范围  nsrange
+ @param string 字符串
+
+ @return NSAttributedString
+ */
++ (NSAttributedString *)stringWithColor:(UIColor *)color range:(NSRange)range string:(NSString *)string;
 @end

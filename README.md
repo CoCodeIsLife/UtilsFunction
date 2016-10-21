@@ -2,6 +2,7 @@
 
 ##提供一些共有的类方法,可以下载在viewcontroller.m里面验证方法的正确性,使用的时候直接把UtilsFunction.h和.m拖到工程里面即可
 
+~~~
 
 /**
  邮箱验证
@@ -186,4 +187,15 @@
  */
 + (NSString *)GetAppCurrentVersion;
 
+/**
+字符串局部着色
 
+@param color  颜色
+@param range  着色范围  nsrange
+@param string 字符串
+
+@return NSAttributedString
+*/
++ (NSAttributedString *)stringWithColor:(UIColor *)color range:(NSRange)range string:(NSString *)string;
+
+~~~

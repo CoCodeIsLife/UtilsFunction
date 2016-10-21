@@ -42,6 +42,16 @@
  */
 
 + (NSString *)chineseWordSwitchIntoPinyinWith:(NSString *)chinese;
+
+/**
+去掉字符串中间的空格
+
+@param string 原字符串
+
+@return 去掉空格后的字符串
+*/
++ (NSString *)removeSpaceInString:(NSString *)string;
+
 /**
  根据时间戳生产时间字符串
 

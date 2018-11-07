@@ -3,7 +3,7 @@
 //  UtilsFunction
 //
 //  Created by liuyanqi on 2016/10/18.
-//  Copyright © 2016年 com.AiShows. All rights reserved.
+//  Copyright © 2016年 com.maple. All rights reserved.
 //
 
 #import "AppDelegate.h"

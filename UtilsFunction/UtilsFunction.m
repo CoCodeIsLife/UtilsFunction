@@ -3,79 +3,72 @@
 //  UtilsFunction
 //
 //  Created by liuyanqi on 2016/10/18.
-//  Copyright © 2016年 com.AiShows. All rights reserved.
+//  Copyright © 2016年 com.maple. All rights reserved.
 //
 
 #import "UtilsFunction.h"
 
 @implementation UtilsFunction
 
+
+#pragma mark 检测字符串是否为空
++ (BOOL)llCheckStringIsNull:(NSString *)str
+{
+    if (str == nil || str == NULL || [str isEqualToString:@""]) {
+        return YES;
+    }
+    if ([str isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    //去除p空格后的字符
+    if ([str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
+        return YES;
+    }
+    return NO;
+}
+
+
 #pragma mark --- 邮箱验证
-+(BOOL)checkEmailIsLegal:(NSString *)email {
-    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:email];
++ (BOOL)llCheckStringIsEmailAddress:(NSString *)email{
+    NSString *regexStr = @"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *regex = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexStr];
+    return [regex evaluateWithObject:email];
 }
 
-#pragma mark --- 身份证号码验证
-
-+ (BOOL)checkIdentityCardNoIsLegal:(NSString *) idNumber{
-    if (idNumber.length == 15 || idNumber.length == 18) {
-        NSString *emailRegex = @"^[0-9]*$";
-        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-        bool sfzNo = [emailTest evaluateWithObject:[idNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-        
-        if (idNumber.length == 15) {
-            if (!sfzNo) {
-                return NO;
-            }
-        }
-        else if (idNumber.length == 18) {
-            bool sfz18NO = [self check18IdentityCardNo:idNumber];
-            if (!sfz18NO) {
-                return NO;
-            }
-        }
-        return YES;
-    }else{
-        return NO;
-    }
-}
-
-+ (BOOL)check18IdentityCardNo:(NSString*)cardNo
+#pragma mark --- 检测手机号码的合法性
++ (BOOL)llCheckStringIsPhoneNum:(NSString *)phoneNumber
 {
-    if (cardNo.length != 18) {
-        return  NO;
-    }
-    NSArray* codeArray = [NSArray arrayWithObjects:@"7",@"9",@"10",@"5",@"8",@"4",@"2",@"1",@"6",@"3",@"7",@"9",@"10",@"5",@"8",@"4",@"2", nil];
-    NSDictionary* checkCodeDic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1",@"0",@"X",@"9",@"8",@"7",@"6",@"5",@"4",@"3",@"2", nil]  forKeys:[NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10", nil]];
+    NSString *regexStr = @"^(13|14|15|16|17|18|19)\\d{9}$";
+    NSPredicate *regex = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexStr];
+    return [regex evaluateWithObject:phoneNumber];
     
-    NSScanner* scan = [NSScanner scannerWithString:[cardNo substringToIndex:17]];
-    
-    int val;
-    BOOL isNum = [scan scanInt:&val] && [scan isAtEnd];
-    if (!isNum) {
-        return NO;
-    }
-    int sumValue = 0;
-    
-    for (int i =0; i<17; i++) {
-        sumValue+=[[cardNo substringWithRange:NSMakeRange(i , 1) ] intValue]* [[codeArray objectAtIndex:i] intValue];
-    }
-    
-    NSString* strlast = [checkCodeDic objectForKey:[NSString stringWithFormat:@"%d",sumValue%11]];
-    
-    if ([strlast isEqualToString: [[cardNo substringWithRange:NSMakeRange(17, 1)]uppercaseString]]) {
-        return YES;
-    }
-    return  NO;
 }
-#pragma mark --- 去掉字符串中间的空格
-+ (NSString *)removeSpaceInString:(NSString *)string
+#pragma mark --- 身份证号码验证(15|18)
++ (BOOL)llCheckStringIsIDNumber:(NSString *)idNumber{
+    
+    NSString *regexStr = @"(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{2}$)";
+    NSPredicate *regex = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexStr];
+    return [regex evaluateWithObject:idNumber];
+    
+}
+
+#pragma mark --- 去掉字符串前后 的空格
++ (NSString *)llCheckStringRemoveHeadFootSpace:(NSString *)string
 {
-    //可以去掉空格，注意此时生成的strEnd是autorelease属性的
-    return  [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return  [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
+
+
+#pragma mark --- 去掉字符串  所有 的空格
+
++ (NSString*)llCheckStringRemoveSpace:(NSString *)string
+{
+    NSString *str = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return str;
+}
+
+
+
 #pragma mark --- 汉字转拼音
 + (NSString *)chineseWordSwitchIntoPinyinWith:(NSString *)chinese
 {
@@ -172,44 +165,9 @@
     return dateStr;
     
 }
-#pragma mark --- 检测手机号码的合法性
-+ (BOOL)checkPhoneNumIsLegal:(NSString *)phoneNumber
-{
-    
-    if (phoneNumber.length != 11)
-    {
-        return NO;
-    }
-    /**
-     * 手机号码:
-     * 13[0-9], 14[5,7], 15[0, 1, 2, 3, 5, 6, 7, 8, 9], 17[0, 1, 6, 7, 8], 18[0-9]
-     * 移动号段: 134,135,136,137,138,139,147,150,151,152,157,158,159,178,182,183,184,187,188
-     * 联通号段: 130,131,132,145,152,155,156,170,171,176,185,186
-     * 电信号段: 133,134,153,177,180,181,189
-     */
-    NSString *MOBILE = @"(13\\d|14[57]|15[0-35-9]|17[01678]|18\\d)\\d{8}";
-    
-    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    
-    return [regextestmobile evaluateWithObject:phoneNumber];
-    
-}
 
-#pragma mark 检测字符串是否为空
-+ (BOOL)checkStringIsNull:(NSString *)str
-{
-    if (str == nil || str == NULL || [str isEqualToString:@""]) {
-        return YES;
-    }
-    if ([str isKindOfClass:[NSNull class]]) {
-        return YES;
-    }
-    
-    if ([str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
-        return YES;
-    }
-    return NO;
-}
+
+
 
 #pragma mark 检测密码合法性
 + (BOOL)checkPasswordIsLegal:(NSString *)password

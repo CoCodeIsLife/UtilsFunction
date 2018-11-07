@@ -3,12 +3,22 @@
 //  UtilsFunction
 //
 //  Created by liuyanqi on 2016/10/18.
-//  Copyright © 2016年 com.AiShows. All rights reserved.
+//  Copyright © 2016年 com.maple. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface UtilsFunction : NSObject
+
+
+/**
+ 判断字符串是否为空
+ 
+ @param str 字符串
+ 
+ @return 字符串是否为空
+ */
++ (BOOL)llCheckStringIsNull:(NSString *)str;
 
 
 /**
@@ -18,7 +28,17 @@
 
  @return 是否符合规则
  */
-+ (BOOL)checkEmailIsLegal:(NSString *)email;
++ (BOOL)llCheckStringIsEmailAddress:(NSString *)email;
+
+
+/**
+ 判断手机号码是否合法
+ 
+ @param phoneNumber 手机号码
+ 
+ @return 手机号码是否合法
+ */
++ (BOOL)llCheckStringIsPhoneNum:(NSString *)phoneNumber;
 
 
 /**
@@ -28,7 +48,38 @@
 
  @return 是否符合规则
  */
-+ (BOOL)checkIdentityCardNoIsLegal:(NSString *)idNumber;
++ (BOOL)llCheckStringIsIDNumber:(NSString *)idNumber;
+
+/**
+ 字符串去除   前后的空格
+ 
+ @param string 参数
+ 
+ @return 去除空格的字符串
+ */
+
++ (NSString*)llCheckStringRemoveHeadFootSpace:(NSString *)string;
+
+
+
+
+/**
+ 去除字符串所有的空格
+
+ @param string 参数
+ @return 目标
+ */
++ (NSString*)llCheckStringRemoveSpace:(NSString *)string;
+
+
+
+
+//#########################
+
+
+
+
+
 
 /**
  根据颜色生成图片
@@ -37,7 +88,7 @@
 
  @return 图片
  */
-+ (UIImage *) imageWithColor: (UIColor *) color ;
++ (UIImage *)imageWithColor: (UIColor *) color ;
 
 
 /**
@@ -88,14 +139,6 @@
 
 + (NSString*)creatrTimeStrCurrentWithSecond;
 
-/**
- 判断手机号码是否合法
-
- @param phoneNumber 手机号码
-
- @return 手机号码是否合法
- */
-+ (BOOL)checkPhoneNumIsLegal:(NSString *)phoneNumber;
 
 
 /**

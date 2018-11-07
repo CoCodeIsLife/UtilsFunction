@@ -280,7 +280,7 @@
 				DEVELOPMENT_TEAM = S76NE753MQ;
 				INFOPLIST_FILE = UtilsFunction/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AiShows.UtilsFunction;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -292,7 +292,7 @@
 				DEVELOPMENT_TEAM = S76NE753MQ;
 				INFOPLIST_FILE = UtilsFunction/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AiShows.UtilsFunction;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
